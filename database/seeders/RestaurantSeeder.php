@@ -15,7 +15,9 @@ class RestaurantSeeder extends Seeder
     {
         Restaurant::factory()
             ->count(20)
-            ->hasMenuItems(4)
+            ->hasOrders(4)
+            ->hasMenus(10)
+            ->hasMenuItems(20)
             ->create();
     }
 }
