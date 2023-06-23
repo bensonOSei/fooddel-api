@@ -19,21 +19,15 @@ class RestaurantController extends Controller
     {
         $filter = new RestaurantFilter();
         $queryItems = $filter->transform($request);
-        // dd($queryItems);
-        if(count($queryItems)) {
-            $restaurants = Restaurant::where($queryItems)->paginate('10');
-            return new RestaurantCollection($restaurants->appends($request->query()));
+
+        $addMenus = $request->query('addMenus');
+        $restaurants = Restaurant::where($queryItems);
+        if ($addMenus) {
+            $restaurants->with('menus');
         }
 
-        return new RestaurantCollection(Restaurant::paginate());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return new RestaurantCollection($restaurants->paginate()
+            ->appends($request->query()));
     }
 
     /**
@@ -41,7 +35,7 @@ class RestaurantController extends Controller
      */
     public function store(StoreRestaurantRequest $request)
     {
-        //
+        return new RestaurantResource(Restaurant::create($request->all()));
     }
 
     /**
@@ -50,14 +44,6 @@ class RestaurantController extends Controller
     public function show(Restaurant $Restaurant)
     {
         return new RestaurantResource($Restaurant);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Restaurant $Restaurant)
-    {
-        //
     }
 
     /**

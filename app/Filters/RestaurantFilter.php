@@ -10,7 +10,7 @@ class RestaurantFilter extends ApiFilter
      * @var array
      */
     protected $allowedParams = [
-        'name' => ['eq', 'neq'],
+        'name' => ['eq', 'neq', 'like', 'nlike'],
         'city' => ['eq', 'neq'],
         'region' => ['eq', 'neq'],
     ];
@@ -29,6 +29,8 @@ class RestaurantFilter extends ApiFilter
     protected $operatorMap = [
         'eq' => '=',
         'neq' => '!=',
+        'like' => 'LIKE',
+        'nlike' => 'NOT LIKE',
     ];
 
 }
