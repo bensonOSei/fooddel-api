@@ -21,7 +21,6 @@ class UserFactory extends Factory
         $role = $this->faker->randomElement(['customer', 'restaurant']);
         $restaurantId = $role === 'restaurant' ? Restaurant::factory() : null;
         return [
-            'id' => Str::uuid(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),

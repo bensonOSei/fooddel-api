@@ -27,7 +27,6 @@ class PaymentFactory extends Factory
         }
 
         return [
-            'id' => $this->faker->uuid(),
             'order_id' => Order::factory(),
             'amount' => $this->faker->randomFloat(2, 0, 100),
             'status' => $status,

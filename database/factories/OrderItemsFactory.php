@@ -22,7 +22,6 @@ class OrderItemsFactory extends Factory
         $total = $this->faker->numberBetween(10,100) * $quantity;
 
         return [
-            'id' => $this->faker->uuid(),
             'order_id' => Order::factory(),
             'menu_id' => Menu::factory(),
             'quantity' => $quantity,

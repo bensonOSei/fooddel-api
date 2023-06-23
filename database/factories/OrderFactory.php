@@ -20,7 +20,6 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => $this->faker->uuid(),
             'menu_item_id' => MenuItems::factory(),
             'total' => $this->faker->randomFloat(2, 0, 100),
         ];
