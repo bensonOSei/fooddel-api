@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('restaurant_id');
             $table->foreignId('user_id');
             $table->string('total');
-            $table->string('status')->default('pending');
+            $table->string('status')->default('pending'); // pending, processing, completed, cancelled
             $table->timestamps();
         });
     }

@@ -20,9 +20,9 @@ class RestaurantController extends Controller
         $filter = new RestaurantFilter();
         $queryItems = $filter->transform($request);
 
-        $addMenus = $request->query('addMenus');
+        $addMenu = $request->query('addMenu');
         $restaurants = Restaurant::where($queryItems);
-        if ($addMenus) {
+        if ($addMenu) {
             $restaurants->with('menus');
         }
 
@@ -43,6 +43,12 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $Restaurant)
     {
+        $addMenu = request()->query('addMenu');
+
+        if ($addMenu) {
+            return new RestaurantResource($Restaurant->loadMissing('menus'));
+        }
+
         return new RestaurantResource($Restaurant);
     }
 
@@ -51,7 +57,7 @@ class RestaurantController extends Controller
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $Restaurant)
     {
-        //
+        $Restaurant->update($request->all());
     }
 
     /**

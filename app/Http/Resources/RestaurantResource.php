@@ -20,7 +20,7 @@ class RestaurantResource extends JsonResource
             'city' => $this->city,
             'region' => $this->region,
             'contact' => $this->contact,
-            'menus' => MenuResource::collection($this->menus),
+            'menus' => MenuResource::collection($this->whenLoaded('menus')),
         ];
     }
 }
