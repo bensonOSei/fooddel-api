@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\RestaurantFilter;
+use App\Http\Resources\RestaurantCollection;
+use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
+use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Restaurant::all();
+        $filter = new RestaurantFilter();
+        $queryItems = $filter->transform($request);
+        // dd($queryItems);
+        if(count($queryItems)) {
+            $restaurants = Restaurant::where($queryItems)->paginate('10');
+            return new RestaurantCollection($restaurants->appends($request->query()));
+        }
+
+        return new RestaurantCollection(Restaurant::paginate());
     }
 
     /**
@@ -37,7 +49,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $Restaurant)
     {
-        return $Restaurant;
+        return new RestaurantResource($Restaurant);
     }
 
     /**
