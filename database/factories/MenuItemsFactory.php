@@ -18,7 +18,6 @@ class MenuItemsFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => $this->faker->uuid(),
             'restaurant_id' => Restaurant::factory(),
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence('10'),

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
+use App\Http\Resources\MenuCollection;
 
 class MenuController extends Controller
 {
@@ -13,7 +14,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+        return new MenuCollection(Menu::all());
     }
 
     /**

@@ -18,7 +18,6 @@ class DeliveryFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => $this->faker->uuid(),
             'order_id' => Order::factory(),
             'delivery_city' => $this->faker->city(),
             'delivery_town' => $this->faker->name(),

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('deliveries', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->foreignId('order_id');
             $table->string('delivery_city');
             $table->string('delivery_town');

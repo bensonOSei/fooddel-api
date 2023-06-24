@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->foreignId('restaurant_id');
             $table->foreignId('user_id');
             $table->string('total');
-            $table->string('status')->default('pending');
+            $table->string('status')->default('pending'); // pending, processing, completed, cancelled
             $table->timestamps();
         });
     }

@@ -2,26 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\RestaurantFilter;
+use App\Http\Resources\RestaurantCollection;
+use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
+use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $filter = new RestaurantFilter();
+        $queryItems = $filter->transform($request);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $addMenu = $request->query('addMenu');
+        $restaurants = Restaurant::where($queryItems);
+        if ($addMenu) {
+            $restaurants->with('menus');
+        }
+
+        return new RestaurantCollection($restaurants->paginate()
+            ->appends($request->query()));
     }
 
     /**
@@ -29,7 +35,7 @@ class RestaurantController extends Controller
      */
     public function store(StoreRestaurantRequest $request)
     {
-        //
+        return new RestaurantResource(Restaurant::create($request->all()));
     }
 
     /**
@@ -37,15 +43,13 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $Restaurant)
     {
-        //
-    }
+        $addMenu = request()->query('addMenu');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Restaurant $Restaurant)
-    {
-        //
+        if ($addMenu) {
+            return new RestaurantResource($Restaurant->loadMissing('menus'));
+        }
+
+        return new RestaurantResource($Restaurant);
     }
 
     /**
@@ -53,7 +57,7 @@ class RestaurantController extends Controller
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $Restaurant)
     {
-        //
+        $Restaurant->update($request->all());
     }
 
     /**

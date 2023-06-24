@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         // WithoutModelEvents::class;
         $this->call([
-            UserSeeder::class,
             RestaurantSeeder::class,
+            UserSeeder::class,
             MenuSeeder::class,
             MenuItemsSeeder::class,
             OrderSeeder::class,

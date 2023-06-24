@@ -21,7 +21,7 @@ class Order extends Model
     /**
      * Order belongs to a restaurant.
      */
-    public function Restaurant()
+    public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
     }
@@ -32,6 +32,22 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItems::class);
+    }
+
+    /**
+     * Order has one delivery.
+     */
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class);
+    }
+
+    /**
+     * Order has one payment.
+     */
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 
 
