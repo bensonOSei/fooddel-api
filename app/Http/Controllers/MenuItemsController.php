@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MenuItemsCollection;
 use App\Models\MenuItems;
 use App\Http\Requests\StoreMenuItemsRequest;
 use App\Http\Requests\UpdateMenuItemsRequest;
@@ -13,7 +14,7 @@ class MenuItemsController extends Controller
      */
     public function index()
     {
-        //
+        return new MenuItemsCollection(MenuItems::all());
     }
 
     /**

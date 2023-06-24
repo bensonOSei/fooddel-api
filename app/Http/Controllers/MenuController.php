@@ -6,15 +6,23 @@ use App\Models\Menu;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
 use App\Http\Resources\MenuCollection;
+use App\Models\Restaurant;
+use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Restaurant $restaurant, Request $request)
     {
-        return new MenuCollection(Menu::all());
+        $addMenuItems = $request->query('add-items');
+        $menus = $restaurant->menus;
+        if ($addMenuItems) {
+            $menus->load('menuItems');
+        }
+
+        return new MenuCollection($restaurant->menus);
     }
 
     /**
