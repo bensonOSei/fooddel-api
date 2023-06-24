@@ -57,7 +57,7 @@ class RestaurantController extends Controller
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $Restaurant)
     {
-        $Restaurant->update($request->all());
+        $Restaurant->update($request->validated());
     }
 
     /**

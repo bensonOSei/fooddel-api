@@ -22,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'App\Http\Controllers'], function() {
     Route::apiResource('restaurants', 'RestaurantController');
-    Route::get('restaurants/{restaurant}/menus', 'MenuController@index');
+    Route::get('restaurant/{restaurant}/menus', 'MenuController@index');
+    Route::get('menu/{menu}', 'MenuController@show');
+    
 });
 
