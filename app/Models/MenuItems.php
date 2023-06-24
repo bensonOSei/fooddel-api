@@ -9,9 +9,9 @@ class MenuItems extends Model
 {
     use HasFactory;
 
-    public function restaurant()
+    public function menu()
     {
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Menu::class);
     }
 
     public function orderItems()

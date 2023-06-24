@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Menu;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,11 +30,6 @@ class Restaurant extends Model
     public function menus()
     {
         return $this->hasMany(Menu::class);
-    }
-
-    public function Restaurant()
-    {
-        return $this->belongsTo(Restaurant::class);
     }
 
     public function users()

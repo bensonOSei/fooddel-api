@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
 use App\Http\Resources\MenuCollection;
+use App\Models\Restaurant;
+use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Restaurant $restaurant, Request $request)
     {
-        return new MenuCollection(Menu::all());
-    }
+        $addMenuItems = $request->query('add-items');
+        $menus = $restaurant->menus;
+        if ($addMenuItems) {
+            $menus->load('menuItems');
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return new MenuCollection($restaurant->menus);
     }
 
     /**
@@ -38,15 +39,12 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
-        //
-    }
+        $addItems = request()->query('add-items');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Menu $menu)
-    {
-        //
+        if($addItems) {
+            return new MenuResource($menu->load('menuItems'));
+        }
+        return new MenuResource($menu);
     }
 
     /**
@@ -54,7 +52,7 @@ class MenuController extends Controller
      */
     public function update(UpdateMenuRequest $request, Menu $menu)
     {
-        //
+        
     }
 
     /**
