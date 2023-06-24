@@ -15,9 +15,13 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $userFirstName = User::find($this->user_id)->first_name;
+        $userLastName = User::find($this->user_id)->last_name;
+        $userFullName = "$userFirstName $userLastName";
+
         return [
-            'id' => User::find($this->user_id)->name,
-            'user_id' => $this->user_id,
+            'id' => $this->id,
+            'user_id' => $userFullName,
             'product_id' => $this->product_id,
             'quantity' => $this->quantity,
             'total' => $this->total,

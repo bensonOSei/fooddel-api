@@ -24,6 +24,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
     Route::apiResource('restaurants', 'RestaurantController');
     Route::get('restaurants/{restaurant}/menus', 'MenuController@index');
     Route::get('menus/{menu}', 'MenuController@show');
-    Route::apiResource('restaurants/{restaurant}/orders', 'Orders');
+    Route::get('restaurants/{restaurant}/menus', 'MenuController@index');
+    Route::get('restaurants/{restaurant}/orders', 'OrderController@index');
+    Route::get('orders/{order}', 'OrderController@show');
 });
 

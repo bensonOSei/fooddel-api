@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrderCollection;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
@@ -15,15 +17,9 @@ class OrderController extends Controller
      */
     public function index(Restaurant $restaurant, Request $request)
     {
-        
-    }
+        $orders = $restaurant->orders;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return new OrderCollection($orders);
     }
 
     /**
@@ -39,15 +35,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Order $order)
-    {
-        //
+        return new OrderResource($order);
     }
 
     /**
