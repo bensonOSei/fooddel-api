@@ -39,6 +39,11 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
+        $addItems = request()->query('add-items');
+
+        if($addItems) {
+            return new MenuResource($menu->load('menuItems'));
+        }
         return new MenuResource($menu);
     }
 
