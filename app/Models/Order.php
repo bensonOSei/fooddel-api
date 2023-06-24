@@ -9,7 +9,13 @@ class Order extends Model
 {
     use HasFactory;
 
-    
+    protected $fillable = [
+        'restaurant_id',
+        'user_id',
+        'status',
+        'total'
+    ];
+
     /**
      * Order belong to a user.
      */
@@ -49,6 +55,4 @@ class Order extends Model
     {
         return $this->hasOne(Payment::class);
     }
-
-
 }

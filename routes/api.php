@@ -25,7 +25,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function() {
     Route::get('restaurants/{restaurant}/menus', 'MenuController@index');
     Route::get('menus/{menu}', 'MenuController@show');
     Route::get('restaurants/{restaurant}/menus', 'MenuController@index');
-    Route::get('restaurants/{restaurant}/orders', 'OrderController@index');
-    Route::get('orders/{order}', 'OrderController@show');
+    Route::get('restaurants/{restaurant}/orders', 'OrderController@index'); //
+    Route::get('orders/{order}', 'OrderController@show'); // needs authentication
+    Route::post('order', 'OrderController@create'); // needs authentication
 });
 
