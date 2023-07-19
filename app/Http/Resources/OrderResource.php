@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\OrderItems;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,6 +24,12 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'userId' => $userFullName,
             'total' => $this->total,
+            'status' => $this->status,
+            'restaurantId' => $this->restaurant_id,
+            'items' => OrderItemsResource::collection(OrderItems::where(
+                'order_id',
+                $this->id
+            )->get())
         ];
     }
 }
