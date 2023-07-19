@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\OrderItems;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -15,12 +16,20 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $userFirstName = User::find($this->user_id)->first_name;
+        $userLastName = User::find($this->user_id)->last_name;
+        $userFullName = "$userFirstName $userLastName";
+
         return [
-            'id' => User::find($this->user_id)->name,
-            'user_id' => $this->user_id,
-            'product_id' => $this->product_id,
-            'quantity' => $this->quantity,
+            'id' => $this->id,
+            'userId' => $userFullName,
             'total' => $this->total,
+            'status' => $this->status,
+            'restaurantId' => $this->restaurant_id,
+            'items' => OrderItemsResource::collection(OrderItems::where(
+                'order_id',
+                $this->id
+            )->get())
         ];
     }
 }

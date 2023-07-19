@@ -9,6 +9,13 @@ class OrderItems extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'order_id',
+        'menu_id',
+        'quantity',
+        'price'
+    ];
+
     public function orders()
     {
         return $this->belongsTo(Orders::class);

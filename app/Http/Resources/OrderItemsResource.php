@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MenuItemsResource extends JsonResource
+class OrderItemsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class MenuItemsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'menu_id' => $this->menu_id,
-            'restaurant_id' => $this->restaurant_id,
-            'name' => $this->name,
-            'description' => $this->description,
+            'orderId' => $this->order_id,
+            'menuId' => $this->menu_id,
+            'quantity' => $this->quantity,
             'price' => $this->price
         ];
     }
