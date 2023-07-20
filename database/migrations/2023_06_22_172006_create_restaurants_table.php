@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('city');
             $table->string('region');
             $table->string('contact');
+            $table->foreignId('user_id')->cascadeOnDelete();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ class Restaurant extends Model
         'city',
         'region',
         'contact',
+        'user_id',
     ];
 
     public function menuItems()
@@ -35,6 +36,11 @@ class Restaurant extends Model
     public function users()
     {
         return $this->belongsTo(Users::class);
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
     }
     
 

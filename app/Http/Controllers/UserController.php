@@ -10,26 +10,42 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection<User>
      */
     public function index()
     {
+        // check if user is admin
+        if(auth()->user()->role !== 'admin') {
+            return response()->json([
+                'message' => 'You are not authorized to view this resource'
+            ], 403);
+        }
         
+        return User::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * @param \App\Http\Requests\StoreUserRequest $request
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        // sign up user
+        $user = User::create($request->validated());
+        
+        // generate token
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // return user with token
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'user' => $user,
+        ], 201);
     }
 
     /**

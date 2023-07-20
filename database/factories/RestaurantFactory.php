@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class RestaurantFactory extends Factory
             'city' => $this->faker->city(),
             'region' => $this->faker->state(),
             'contact' => $this->faker->phoneNumber(),
+            'user_id' => User::factory(),
         ];
     }
 }

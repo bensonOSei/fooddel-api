@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone_number', 20)->nullable();
-            $table->string('role', 20)->default('customer'); // customer, restaurant
+            $table->string('role', 20)->default('customer'); // customer, owner, worker, admin
             $table->foreignId('restaurant_id')->nullable();
             $table->string('password');
             $table->rememberToken();

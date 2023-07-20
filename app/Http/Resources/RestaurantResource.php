@@ -21,6 +21,7 @@ class RestaurantResource extends JsonResource
             'region' => $this->region,
             'contact' => $this->contact,
             'menus' => MenuResource::collection($this->whenLoaded('menus')),
+            'owner' => UserResource::make($this->whenLoaded('owner')),
         ];
     }
 }
